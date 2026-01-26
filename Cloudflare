@@ -1,12 +1,13 @@
 export default {
 fetch() {
 const totalFeedback= 4;
-  return new Response(
-  "<h1>Feedback Insights</h1>
-<p>Total Feedback:${totalFeedback}</p>"
-{
-      headers: { "Content- Type": "text/html"  }
-    }
-  );
+
+consthtml=
+  "<h1>Feedback Insights</h1> +
+<p>Total Feedback:" + totalFeedback}+ "</p>"
+
+  return new Response(html,{
+headers: { "Content- Type": "text/html"  }
+});
 }
 };
