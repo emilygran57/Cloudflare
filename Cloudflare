@@ -1,7 +1,7 @@
 export default {
 fetch() {
   return new Response(
-  "<h1>Feedback Insights</h1><p>Total Feedback:4</p>",
+  "<h1>Feedback Insights</h1><p>Total Feedback:4</p>Top issue: Performance/p>"
 {
       headers: { "Content- Type": "text/html"  }
     }
