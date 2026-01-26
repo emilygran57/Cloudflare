@@ -1,11 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feedback Demot</title>
-</head>
-<body>
-    
-</body>
-</html>
+export default {
+  fetch() {
+    const feedback = [
+      { text: "Dashboard is slow", sentiment: "negative", category: "Performance" },
+      { text: "Love the UI", sentiment: "positive", category: "Design" },
+      { text: "Could load faster", sentiment: "negative", category: "Performance" },
+      { text: "Support was helpful", sentiment: "positive", category: "Support" }
+    ];
+
+    const total = feedback.length;
+
+    const sentiment = {
+      positive: feedback.filter(f => f.sentiment === "positive").length,
+      negative: feedback.filter(f => f.sentiment === "negative").length
+    };
+
+    const categories = {};
+    for (const f of feedback) {
+      categories[f.category] = (categories[f.category] || 0) + 1;
+    }
+
+    const html = `
+      <html>
+        <head>
+          <title>Feedback Insights</title>
+          <style>
+            body {
+              font-family: system-ui, sans-serif;
+              padding: 40px;
+              background: #f9fafb;
+            }
+            h1 {
+              margin-bottom: 8px;
+            }
+            .card {
+              background: white;
+              padding: 16px;
+              margin: 16px 0;
+              border-radius: 8px;
+              box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Feedback Insights Dashboard</h1>
+
+          <div class="card">
+            <strong>Total Feedback:</strong> ${total}<br/>
+            <strong>Positive:</strong> ${sentiment.positive}<br/>
+            <strong>Negative:</strong> ${sentiment.negative}
+          </div>
+
+          <div class="card">
+            <h3>Top Issues</h3>
+            <ul>
+              ${Object.entries(categories)
+                .map(([cat, count]) => `<li>${cat}: ${count}</li>`)
+                .join("")}
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>AI Summary (Mock)</h3>
+            <p>Most users mention performance issues, while design and support feedback is positive.</p>
+          </div>
+        </body>
+      </html>
+    `;
+
+    return new Response(html, {
+      headers: { "Content-Type": "text/html" }
+    });
+  }
+};
